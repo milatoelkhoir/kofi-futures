@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👑 KING OF FUTURES INDONESIA — BTC/USDT-M Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-crown"></i>
+                <span>KING OF FUTURES</span>
+                <span class="nav-badge">🇮🇩 INDONESIA</span>
+            </div>
+            <div class="nav-status">
+                <span id="clock">--:--:--</span>
+                <span id="session">🔥 KILL ZONE</span>
+            </div>
+            <div class="nav-actions">
+                <button class="btn-icon" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="btn-icon" onclick="exportJournal()" title="Export Journal">
+                    <i class="fas fa-download"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>👑 KING OF FUTURES INDONESIA</h1>
+            <p class="hero-subtitle">Manajer Dana Futures Kelas Dunia — Analisis BTC/USDT-M Hari Ini</p>
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <i class="fas fa-clock"></i>
+                    <span id="hero-date">15 Mei 2025</span>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-fire"></i>
+                    <span id="hero-zone">KILL ZONE AKTIF</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN DASHBOARD -->
+    <main class="dashboard">
+        <div class="container">
+            
+            <!-- SECTION 1: LIVE MARKET -->
+            <section class="section" id="live-market">
+                <h2 class="section-title">
+                    <i class="fas fa-chart-line"></i> LIVE MARKET OVERVIEW
+                </h2>
+                <div class="grid-3">
+                    <!-- BTC Price Card -->
+                    <div class="price-card primary">
+                        <div class="price-label">💰 BTC/USDT-M</div>
+                        <div class="price-value" id="btc-price">Loading...</div>
+                        <div class="price-change" id="btc-change">+0.00%</div>
+                        <div class="price-meta">
+                            <span>H24: <span id="btc-h24">--</span></span>
+                            <span>L24: <span id="btc-l24">--</span></span>
+                        </div>
+                    </div>
+
+                    <!-- Mark Price -->
+                    <div class="price-card">
+                        <div class="price-label">📊 Mark Price</div>
+                        <div class="price-value" id="mark-price">--</div>
+                        <div class="price-meta">
+                            <span>Index: <span id="index-price">--</span></span>
+                        </div>
+                        <div class="premium" id="premium">Premium: --%</div>
+                    </div>
+
+                    <!-- Fear & Greed -->
+                    <div class="price-card">
+                        <div class="price-label">🌡️ Fear & Greed</div>
+                        <div class="price-value" id="fng-value">--</div>
+                        <div class="price-change" id="fng-class">--</div>
+                        <div class="price-meta">
+                            <span>Range: 0-100</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Market Data -->
+                <div class="grid-4">
+                    <div class="data-card">
+                        <i class="fas fa-coins"></i>
+                        <div class="data-label">Funding Rate</div>
+                        <div class="data-value" id="funding-rate">--</div>
+                    </div>
+                    <div class="data-card">
+                        <i class="fas fa-chart-bar"></i>
+                        <div class="data-label">Open Interest</div>
+                        <div class="data-value" id="open-interest">--</div>
+                    </div>
+                    <div class="data-card">
+                        <i class="fas fa-balance-scale"></i>
+                        <div class="data-label">Long/Short Ratio</div>
+                        <div class="data-value" id="ls-ratio">--</div>
+                    </div>
+                    <div class="data-card">
+                        <i class="fas fa-percentage"></i>
+                        <div class="data-label">BTC Dominance</div>
+                        <div class="data-value" id="btc-dom">--</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: 10 COINS PRICES -->
+            <section class="section" id="10-coins">
+                <h2 class="section-title">
+                    <i class="fas fa-coins"></i> TOP 10 KIN PRICE
+                </h2>
+                <div class="grid-5" id="coins-grid">
+                    <!-- Dynamically generated -->
+                </div>
+            </section>
+
+            <!-- SECTION 3: DEEP ANALYSIS -->
+            <section class="section" id="analysis">
+                <h2 class="section-title">
+                    <i class="fas fa-microscope"></i> DEEP ANALYSIS — BTC/USDT-M
+                </h2>
+                
+                <!-- Tabs -->
+                <div class="tabs">
+                    <button class="tab active" onclick="switchTab('technical')">📈 Teknikal</button>
+                    <button class="tab" onclick="switchTab('fundamental')">📊 Fundamental</button>
+                    <button class="tab" onclick="switchTab('binance')">🔴 Binance Data</button>
+                    <button class="tab" onclick="switchTab('macro')">🌍 Makro</button>
+                    <button class="tab" onclick="switchTab('smc')">🎯 SMC</button>
+                </div>
+
+                <!-- Technical Analysis -->
+                <div class="tab-content active" id="tab-technical">
+                    <div class="analysis-grid">
+                        <div class="analysis-card">
+                            <h3>RSI (14)</h3>
+                            <div class="indicator-value" id="rsi-value">--</div>
+                            <div class="indicator-label" id="rsi-status">--</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>MACD (12,26,9)</h3>
+                            <div class="indicator-value" id="macd-value">--</div>
+                            <div class="indicator-label" id="macd-status">--</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>MA 50 vs MA 200</h3>
+                            <div class="indicator-value" id="ma-value">--</div>
+                            <div class="indicator-label" id="ma-status">--</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Bollinger Bands</h3>
+                            <div class="indicator-value" id="bb-value">--</div>
+                            <div class="indicator-label" id="bb-status">--</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>ATR (14)</h3>
+                            <div class="indicator-value" id="atr-value">--</div>
+                            <div class="indicator-label">Volatilitas</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>EMA 9 vs EMA 21</h3>
+                            <div class="indicator-value" id="ema-value">--</div>
+                            <div class="indicator-label" id="ema-status">--</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Stochastic RSI</h3>
+                            <div class="indicator-value" id="stoch-value">--</div>
+                            <div class="indicator-label" id="stoch-status">--</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Ichimoku Cloud</h3>
+                            <div class="indicator-value" id="ichimoku-value">--</div>
+                            <div class="indicator-label" id="ichimoku-status">--</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Fibonacci Levels</h3>
+                            <div class="indicator-value" id="fib-value">--</div>
+                            <div class="indicator-label">0.236 - 0.786</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>VWAP</h3>
+                            <div class="indicator-value" id="vwap-value">--</div>
+                            <div class="indicator-label" id="vwap-status">--</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Market Structure</h3>
+                            <div class="indicator-value" id="ms-value">--</div>
+                            <div class="indicator-label" id="ms-status">--</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Volume Profile</h3>
+                            <div class="indicator-value" id="vp-value">--</div>
+                            <div class="indicator-label">High Volume Area</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fundamental Analysis -->
+                <div class="tab-content" id="tab-fundamental">
+                    <div class="analysis-grid">
+                        <div class="analysis-card">
+                            <h3>ETF Flow (BTC)</h3>
+                            <div class="indicator-value" id="etf-flow">--</div>
+                            <div class="indicator-label">Inflow/Outflow</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Stablecoin Supply</h3>
+                            <div class="indicator-value" id="stablecoin">--</div>
+                            <div class="indicator-label">USDT + USDC</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>On-Chain (NVT)</h3>
+                            <div class="indicator-value" id="nvt-value">--</div>
+                            <div class="indicator-label">Network Value to Transactions</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>MVRV Ratio</h3>
+                            <div class="indicator-value" id="mvrv-value">--</div>
+                            <div class="indicator-label">Market Value vs Realized</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Hashrate</h3>
+                            <div class="indicator-value" id="hashrate">--</div>
+                            <div class="indicator-label">EH/s</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Supply Exchange</h3>
+                            <div class="indicator-value" id="exch-supply">--</div>
+                            <div class="indicator-label">% di Bursa</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Halving Counter</h3>
+                            <div class="indicator-value" id="halving">--</div>
+                            <div class="indicator-label">Days since April 2024</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Social Sentiment</h3>
+                            <div class="indicator-value" id="sentiment">--</div>
+                            <div class="indicator-label">CryptoCompare</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Binance Data -->
+                <div class="tab-content" id="tab-binance">
+                    <div class="analysis-grid">
+                        <div class="analysis-card">
+                            <h3>Open Interest</h3>
+                            <div class="indicator-value" id="binance-oi">--</div>
+                            <div class="indicator-label">24h Change</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Long/Short Ratio</h3>
+                            <div class="indicator-value" id="binance-lsr">--</div>
+                            <div class="indicator-label">Ratio</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Liquidation Heatmap</h3>
+                            <div class="indicator-value" id="liquidation">--</div>
+                            <div class="indicator-label">Long vs Short</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Whale Alert</h3>
+                            <div class="indicator-value" id="whale-alert">--</div>
+                            <div class="indicator-label">Big Transactions</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Funding Rate</h3>
+                            <div class="indicator-value" id="binance-funding">--</div>
+                            <div class="indicator-label">Next: -- WIB</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Options Put/Call</h3>
+                            <div class="indicator-value" id="put-call">--</div>
+                            <div class="indicator-label">Ratio</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Macro Data -->
+                <div class="tab-content" id="tab-macro">
+                    <div class="analysis-grid">
+                        <div class="analysis-card">
+                            <h3>S&P 500</h3>
+                            <div class="indicator-value" id="sp500">--</div>
+                            <div class="indicator-label">Daily Change</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>DXY (Dollar Index)</h3>
+                            <div class="indicator-value" id="dxy">--</div>
+                            <div class="indicator-label">Daily Change</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Gold (XAUUSD)</h3>
+                            <div class="indicator-value" id="gold">--</div>
+                            <div class="indicator-label">Daily Change</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Fed Funds Rate</h3>
+                            <div class="indicator-value" id="fed-rate">--</div>
+                            <div class="indicator-label">%</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>CPI (Inflation)</h3>
+                            <div class="indicator-value" id="cpi">--</div>
+                            <div class="indicator-label">%</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>US 10Y Yield</h3>
+                            <div class="indicator-value" id="bond-yield">--</div>
+                            <div class="indicator-label">%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SMC -->
+                <div class="tab-content" id="tab-smc">
+                    <div class="analysis-grid">
+                        <div class="analysis-card">
+                            <h3>Higher High (HH)</h3>
+                            <div class="indicator-value" id="hh">--</div>
+                            <div class="indicator-label">Price Level</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Higher Low (HL)</h3>
+                            <div class="indicator-value" id="hl">--</div>
+                            <div class="indicator-label">Price Level</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Lower High (LH)</h3>
+                            <div class="indicator-value" id="lh">--</div>
+                            <div class="indicator-label">Price Level</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Lower Low (LL)</h3>
+                            <div class="indicator-value" id="ll">--</div>
+                            <div class="indicator-label">Price Level</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Order Block Bullish</h3>
+                            <div class="indicator-value" id="ob-bull">--</div>
+                            <div class="indicator-label">Support</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Order Block Bearish</h3>
+                            <div class="indicator-value" id="ob-bear">--</div>
+                            <div class="indicator-label">Resistance</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Fair Value Gap</h3>
+                            <div class="indicator-value" id="fvg">--</div>
+                            <div class="indicator-label">Price Level</div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Breaker Block</h3>
+                            <div class="indicator-value" id="breaker">--</div>
+                            <div class="indicator-label">Price Level</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: SCORING -->
+            <section class="section" id="scoring">
+                <h2 class="section-title">
+                    <i class="fas fa-star"></i> SKOR GABUNGAN
+                </h2>
+                <div class="score-container">
+                    <div class="score-card">
+                        <div class="score-label">Teknikal</div>
+                        <div class="score-value" id="tech-score">--</div>
+                        <div class="score-bar"><div class="score-fill" id="tech-bar"></div></div>
+                    </div>
+                    <div class="score-card">
+                        <div class="score-label">Fundamental</div>
+                        <div class="score-value" id="fund-score">--</div>
+                        <div class="score-bar"><div class="score-fill" id="fund-bar"></div></div>
+                    </div>
+                    <div class="score-card">
+                        <div class="score-label">Binance Data</div>
+                        <div class="score-value" id="binance-score">--</div>
+                        <div class="score-bar"><div class="score-fill" id="binance-bar"></div></div>
+                    </div>
+                    <div class="score-card highlight">
+                        <div class="score-label">TOTAL</div>
+                        <div class="score-value" id="total-score">--</div>
+                        <div class="score-bar"><div class="score-fill" id="total-bar"></div></div>
+                    </div>
+                </div>
+                <div class="recommendation-box" id="recommendation">
+                    <i class="fas fa-lightbulb"></i>
+                    <span>Menunggu analisis...</span>
+                </div>
+            </section>
+
+            <!-- SECTION 5: TRADING SIGNALS -->
+            <section class="section" id="signals">
+                <h2 class="section-title">
+                    <i class="fas fa-bullseye"></i> TRADING SIGNALS
+                </h2>
+                <div class="grid-2">
+                    <!-- LONG Setup -->
+                    <div class="signal-card long">
+                        <div class="signal-header">
+                            <i class="fas fa-arrow-up"></i>
+                            <h3>🔥 LONG SETUP</h3>
+                        </div>
+                        <div class="signal-body">
+                            <div class="signal-row">
+                                <span>Entry Zone:</span>
+                                <span id="long-entry">--</span>
+                            </div>
+                            <div class="signal-row">
+                                <span>Entry Ideal:</span>
+                                <span id="long-ideal">--</span>
+                            </div>
+                            <div class="signal-row">
+                                <span>Stop Loss:</span>
+                                <span id="long-sl">--</span>
+                            </div>
+                            <div class="signal-row">
+                                <span>TP1 (1:1.5):</span>
+                                <span id="long-tp1">--</span>
+                            </div>
+                            <div class="signal-row">
+                                <span>TP2 (1:2.5):</span>
+                                <span id="long-tp2">--</span>
+                            </div>
+                            <div class="signal-row">
+                                <span>TP3 (1:5):</span>
+                                <span id="long-tp3">--</span>
+                            </div>
+                            <div class="signal-row">
+                                <span>Liquidation:</span>
+                                <span id="long-liq">--</span>
+                            </div>
+                            <div class="signal-row">
+                                <span>Leverage:</span>
+                                <span id="long-lev">--</span>
+                            </div>
+                            <div class="signal-row">
+                                <span>Position Size:</span>
+                                <span id="long-size">--</span>
+                            </div>
+                            <div class="signal-row">
+                                <span>R:R Ratio:</span>
+                                <span id="long-rr">--</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SHORT Setup -->
+                    <div class="signal-card short">
+                        <div class="signal-header">
+                            <i class="fas fa-arrow-down"></i>
+                            <h3>🔴 SHORT SETUP</h3>
+                        </div>
+                        <div class="signal-body">
+                            <div class="signal-row">
+                                <span>Entry Zone:</span>
+                                <span id="short-entry">--</span>
+                            </div>
+                            <div class="signal-row">
+                                <span>Entry Ideal:</span>
+                                <span id="short-ideal">--</span>
+                            </div>
+                            <div class="signal-row">
+                                <span>Stop Loss:</span>
+                                <span id="short-sl">--</span>
+                            </div>
+                            <div class="signal-row">
+                                <span>TP1 (1:1.5):</span>
+                                <span id="short-tp1">--</span>
+                            </div>
+                            <div class="signal-row">
+                                <span>TP2 (1:2.5):</span>
+                                <span id="short-tp2">--</span>
+                            </div>
+                            <div class="signal-row">
+                                <span>TP3 (1:5):</span>
+                                <span id="short-tp3">--</span>
+                            </div>
+                            <div class="signal-row">
+                                <span>Liquidation:</span>
+                                <span id="short-liq">--</span>
+                            </div>
+                            <div class="signal-row">
+                                <span>Leverage:</span>
+                                <span id="short-lev">--</span>
+                            </div>
+                            <div class="signal-row">
+                                <span>Position Size:</span>
+                                <span id="short-size">--</span>
+                            </div>
+                            <div class="signal-row">
+                                <span>R:R Ratio:</span>
+                                <span id="short-rr">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 6: PREDICTION 7 DAYS -->
+            <section class="section" id="prediction">
+                <h2 class="section-title">
+                    <i class="fas fa-crystal-ball"></i> PREDIKSI 7 HARI KE DEPAN
+                </h2>
+                <div class="prediction-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Arah</th>
+                                <th>Persentase</th>
+                                <th>Range Harga</th>
+                                <th>Alasan Singkat</th>
+                            </tr>
+                        </thead>
+                        <tbody id="prediction-tbody">
+                            <!-- Dynamically generated -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SECTION 7: TRADING JOURNAL -->
+            <section class="section" id="journal">
+                <h2 class="section-title">
+                    <i class="fas fa-book"></i> TRADING JOURNAL
+                </h2>
+                <div class="journal-form">
+                    <h3>Tambah Entry Baru</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Tanggal</label>
+                            <input type="date" id="j-date">
+                        </div>
+                        <div class="form-group">
+                            <label>Pair</label>
+                            <select id="j-pair">
+                                <option>BTC/USDT-M</option>
+                                <option>ETH/USDT-M</option>
+                                <option>SOL/USDT-M</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Setup</label>
+                            <select id="j-setup">
+                                <option>LONG</option>
+                                <option>SHORT</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Entry Price</label>
+                            <input type="number" id="j-entry" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Exit Price</label>
+                            <input type="number" id="j-exit" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Stop Loss</label>
+                            <input type="number" id="j-sl" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Take Profit 1</label>
+                            <input type="number" id="j-tp1" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Take Profit 2</label>
+                            <input type="number" id="j-tp2" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Take Profit 3</label>
+                            <input type="number" id="j-tp3" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Leverage</label>
+                            <input type="number" id="j-lev" value="20">
+                        </div>
+                        <div class="form-group">
+                            <label>Position Size (USDT)</label>
+                            <input type="number" id="j-size" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Profit/Loss</label>
+                            <input type="number" id="j-pl" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Strategi</label>
+                            <select id="j-strategy">
+                                <option>Scalping</option>
+                                <option>Swing</option>
+                                <option>DCA</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Alasan</label>
+                            <textarea id="j-reason" rows="2"></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Pelajaran</label>
+                            <textarea id="j-lessons" rows="2"></textarea>
+                        </div>
+                    </div>
+                    <button class="btn-primary" onclick="saveJournal()">
+                        <i class="fas fa-save"></i> Simpan Journal
+                    </button>
+                </div>
+
+                <!-- Journal History -->
+                <div class="journal-history">
+                    <h3>Riwayat Journal</h3>
+                    <div class="journal-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <th>Pair</th>
+                                    <th>Setup</th>
+                                    <th>Entry</th>
+                                    <th>Exit</th>
+                                    <th>SL</th>
+                                    <th>TP1</th>
+                                    <th>TP2</th>
+                                    <th>TP3</th>
+                                    <th>Leverage</th>
+                                    <th>Size</th>
+                                    <th>P/L</th>
+                                    <th>Strategi</th>
+                                    <th>Alasan</th>
+                                </tr>
+                            </thead>
+                            <tbody id="journal-tbody">
+                                <!-- Dynamically generated -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 8: RISK MANAGEMENT -->
+            <section class="section" id="risk">
+                <h2 class="section-title">
+                    <i class="fas fa-shield-alt"></i> ATURAN BESI FUTURES
+                </h2>
+                <div class="rules-grid">
+                    <div class="rule-card">
+                        <i class="fas fa-check-circle"></i>
+                        <p>Maksimal 10% margin per trade</p>
+                    </div>
+                    <div class="rule-card">
+                        <i class="fas fa-check-circle"></i>
+                        <p>Stop Loss WAJIB di setiap trade</p>
+                    </div>
+                    <div class="rule-card">
+                        <i class="fas fa-check-circle"></i>
+                        <p>Leverage maksimal 50x (pemula 20x)</p>
+                    </div>
+                    <div class="rule-card">
+                        <i class="fas fa-check-circle"></i>
+                        <p>Jarak ke Liquidation MINIMAL 5%</p>
+                    </div>
+                    <div class="rule-card">
+                        <i class="fas fa-times-circle"></i>
+                        <p>JANGAN trade di Dead Zone (00:00-02:00)</p>
+                    </div>
+                    <div class="rule-card">
+                        <i class="fas fa-times-circle"></i>
+                        <p>JANGAN leverage >50x</p>
+                    </div>
+                    <div class="rule-card">
+                        <i class="fas fa-times-circle"></i>
+                        <p>JANGAN pakai uang kebutuhan hidup</p>
+                    </div>
+                    <div class="rule-card">
+                        <i class="fas fa-times-circle"></i>
+                        <p>JANGAN FOMO (Fear of Missing Out)</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>👑 KING OF FUTURES INDONESIA © 2025 | BAHASA INDONESIA | WIB (UTC+7)</p>
+        <p>⚠️ Trading futures memiliki risiko tinggi. Hanya gunakan uang investasi.</p>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="js/api.js"></script>
+    <script src="js/indicators.js"></script>
+    <script src="js/journal.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
